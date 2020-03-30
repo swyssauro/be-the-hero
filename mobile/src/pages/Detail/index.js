@@ -10,9 +10,9 @@ import { Feather } from '@expo/vector-icons';
 export default function Detail() {
 
     const navigations = useNavigation();
-    const message = `Olá Larissa estou entrando em contato com vc sobre o caso.`;
     const route = useRoute();
     const incident = route.params.incident;
+    const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de contribuir com o caso.`;
 
     function navigateBack() {
         navigations.goBack()
@@ -21,14 +21,14 @@ export default function Detail() {
 
     function sendEmail() {
         MailComposer.composeAsync({
-            subject: 'Heró do caso: Cachorro Atropelado',
-            recipients: ['vitorcqueirooz@outlook.com'],
+            subject: `Heró do caso: ${incident.title}`,
+            recipients: [incident.email],
             body: message,
         })
     }
 
     function sendWhatsapp() {
-        Linking.openURL(`whatsapp://send?text=${message}&phone=5519996011312`);
+        Linking.openURL(`whatsapp://send?text=${message}&phone=${incident.whatsaap}`);
     }
 
     return (
